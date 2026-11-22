@@ -1,0 +1,11 @@
+{
+ "fixtures/owasp-agentic-top10-2026.csv": "ff079d903ad1d1d39fcec0218ad5cad9750bb3fa44188ff3cb751dd6b9e1a313",
+ "fixtures/owasp-llm-top10-2025.csv": "cc850fb28fd14a5caf4cd4832e2ba211741c637e9880c913ec6c817729117f8d",
+ "fixtures/rfc8032-test-vectors.csv": "8cd4f978e93c7139eb1cd02a846e68824a98be3ca7dee8d8a8ed0ed70e7570f7",
+ "fixtures/source-excerpts/KeyType-enum.txt": "54bd143e72d00da465339ea276310e8273e62d1a9b29e59f6d0538865dccd1e7",
+ "fixtures/source-excerpts/Manifest-verify-revoked.txt": "adb316740013ae3c6f51e8ab629b950c36bb3acd9dd74aaaa03660bb4d364d73",
+ "fixtures/source-excerpts/PublicKey-verify.txt": "cb18ba6eb31fc74ba9c8c811b0b9ee595be19326c2d2029d0ade633f93d77d10",
+ "fixtures/source-excerpts/SecretKey-sign-dispatch.txt": "1d6c070d68774ceaf8c87b1cc30b38aa5cbefdc058c2e2de39e18391013bbccc",
+ "fixtures/source-excerpts/Seed-random-generate.txt": "443fe0a3819ac7b852d6b1742881acd3f1b6abcbd70de125e53241166911e37f",
+ "fixtures/source-excerpts/TaskNode-identity-address.txt": "53f8aaf84466933266b18db24f66804b7d1e6567ca228a119f72a77eed5ff338"
+}

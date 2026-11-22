@@ -1,0 +1,11 @@
+id,name,source
+LLM01,Prompt Injection,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM02,Sensitive Information Disclosure,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM03,Supply Chain,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM04,Data and Model Poisoning,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM05,Improper Output Handling,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM06,Excessive Agency,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM07,System Prompt Leakage,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM08,Vector and Embedding Weaknesses,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM09,Misinformation,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)
+LLM10,Unbounded Consumption,OWASP Top 10 for LLM Applications 2025 (genai.owasp.org)

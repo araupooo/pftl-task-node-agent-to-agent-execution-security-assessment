@@ -1,0 +1,11 @@
+id,name,source
+ASI01,Agent Goal Hijack,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI02,Tool Misuse and Exploitation,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI03,Identity and Privilege Abuse,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI04,Agentic Supply Chain Vulnerabilities,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI05,Unexpected Code Execution,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI06,Memory and Context Poisoning,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI07,Insecure Inter-Agent Communication,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI08,Cascading Failures,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI09,Human-Agent Trust Exploitation,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
+ASI10,Rogue Agents,OWASP Top 10 for Agentic Applications 2026 (GenAI Security Project, 2025-12-09)
