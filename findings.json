@@ -1,0 +1,114 @@
+{
+ "verdict": "NOT VERIFIABLE \u2014 the reference design holds in the lab (16/16 drill cases, 13/13 attacks rejected), but the live platform's agent-authentication controls cannot be confirmed from any public source.",
+ "findings": [
+  {
+   "id": "F-01",
+   "severity": "HIGH",
+   "status": "SPECIFIED",
+   "title": "No published agent-authentication specification for the live platform",
+   "evidence": "The public Task Node page describes the lifecycle (request, work, evidence, reward) and the agent connect flow (link + short code approval), but publishes no token format, signing scheme, credential scope, or verification rule. docs.postfiat.org is a Notion page that returns no readable content to a plain fetch. Whether agent actions are signed at all is UNVERIFIED (C-31).",
+   "remediation": "Publish the agent credential format, the signing scheme, token lifetimes, and the revocation procedure; adopt the reference design in docs/auth-design.md."
+  },
+  {
+   "id": "F-02",
+   "severity": "HIGH",
+   "status": "MEASURED",
+   "title": "Reference design rejects 13/13 attack cases in the lab drill",
+   "evidence": "Drill D-01..D-16: 3 valid actions accepted, 13 attacks rejected with the expected reason (replay, forgery, tampering, escalation, cross-task reuse, expiry, revocation, stale/future timestamps, malformed action, untrusted issuer, nonce reuse, oversized payload). outputs/derived/drill-results.json, outputs/drill-run.log.",
+   "remediation": "None for the design. The gap is adoption: the design must be implemented and published by the platform, and its live behaviour independently verified."
+  },
+  {
+   "id": "F-03",
+   "severity": "HIGH",
+   "status": "SPECIFIED",
+   "title": "A single long-lived agent credential is a single point of compromise",
+   "evidence": "OWASP ASI03 (Identity and Privilege Abuse): agents inherit or escalate high-privilege credentials; the 2025 Agentic Top 10 lists credential leakage letting agents operate far beyond intended scope. The design counters it with per-task scoped, 1-hour tokens (docs/auth-design.md \u00a73).",
+   "remediation": "Issue per-task, short-lived capability tokens only; never hand an agent a standing credential that authorizes more than one task."
+  },
+  {
+   "id": "F-04",
+   "severity": "MEDIUM",
+   "status": "MEASURED",
+   "title": "Forged evidence is rejected by signature verification",
+   "evidence": "D-05: an action claiming the victim's identity but signed with the attacker's key is rejected (bad-agent-signature). D-06: a valid signature over a different payload is rejected (payload-mismatch). Ed25519 verification is the binding mechanism; the implementation passes RFC 8032 TEST 1\u20133.",
+   "remediation": "Keep evidence signatures mandatory; never accept evidence whose payload hash was not signed by the task owner."
+  },
+  {
+   "id": "F-05",
+   "severity": "MEDIUM",
+   "status": "MEASURED",
+   "title": "Cross-task capability reuse is rejected",
+   "evidence": "D-08: a token issued for task-lab-001 presented on task-lab-002 is rejected (task-mismatch). The token binds task_id and the verifier compares it with the action's task_id.",
+   "remediation": "Bind every credential to exactly one task id at issuance; reject mismatches at verification."
+  },
+  {
+   "id": "F-06",
+   "severity": "MEDIUM",
+   "status": "SPECIFIED",
+   "title": "Goal hijack via poisoned task text is not stopped by cryptography",
+   "evidence": "OWASP ASI01 (Agent Goal Hijack) / LLM01 (Prompt Injection): malicious content alters the agent's objectives through its planning and reasoning. Signatures authenticate WHO acted, not WHETHER the objective was the requester's. No drill case covers it: it is a content attack, not a protocol attack.",
+   "remediation": "Content provenance for task text; treat linked documents as data, not instructions; require human approval for consequential actions."
+  },
+  {
+   "id": "F-07",
+   "severity": "MEDIUM",
+   "status": "MEASURED",
+   "title": "Revocation list blocks stolen-credential reuse",
+   "evidence": "D-10: after the agent is added to the revocation list, its previously valid token is rejected (agent-revoked). The check runs on every verification, before the capability check.",
+   "remediation": "Operate the revocation list as a live service with a stated maximum propagation delay; audit every revocation (docs/incident-response.md)."
+  },
+  {
+   "id": "F-08",
+   "severity": "MEDIUM",
+   "status": "SPECIFIED",
+   "title": "No published credential revocation/rotation procedure for agents",
+   "evidence": "The public Task Node page documents device revocation ('Every connected device is listed, and can be revoked') but publishes no agent-credential revocation, rotation, or expiry procedure. Whether one exists is UNVERIFIED (C-33).",
+   "remediation": "Publish the rotation schedule, the revocation endpoint, and the maximum propagation delay; adopt docs/credential-lifecycle.md."
+  },
+  {
+   "id": "F-09",
+   "severity": "LOW",
+   "status": "MEASURED",
+   "title": "Replay window is bounded by nonce cache plus a 300 s clock-skew window",
+   "evidence": "D-11 (stale timestamp) and D-12 (future timestamp) are rejected; D-04/D-15 (nonce reuse) are rejected. Design parameters: action TTL 900 s, clock skew 300 s, nonce cache retention 900 s; worst-case acceptance age 1,200 s. Nonce collision probability at 1e6 actions/day is 1.469e-27 (auth-model.json).",
+   "remediation": "Keep the windows as specified; alert on nonce cache saturation (a sign of replay flooding)."
+  },
+  {
+   "id": "F-10",
+   "severity": "LOW",
+   "status": "SPECIFIED",
+   "title": "Ed25519 fits the platform's existing key types",
+   "evidence": "postfiatd KeyType has exactly two values, secp256k1 and ed25519 (include/xrpl/protocol/KeyType.h:28\u201331, pinned 0085a1ff). Signing and verification dispatch by KeyType (SecretKey.h:175\u2013180, PublicKey.h:241\u2013252). A 64-byte Ed25519 signature is 12.5% of the 512-byte manifest cap (ManifestMessages.h:24).",
+   "remediation": "Use Ed25519 agent keys: they reuse the platform's existing key handling and fit every size budget."
+  },
+  {
+   "id": "F-11",
+   "severity": "LOW",
+   "status": "SPECIFIED",
+   "title": "Per-task audit record must be append-only; its tamper-evidence is unverified",
+   "evidence": "The public Task Node page states each task has a requester, an owner, evidence and a verifier, and the record is public. Whether that record is tamper-evident (hash-chained or signed) is not published and is UNTESTABLE from outside (C-35).",
+   "remediation": "Hash-chain the per-task record and sign each entry with the platform key so any later edit is detectable."
+  },
+  {
+   "id": "F-12",
+   "severity": "INFO",
+   "status": "MEASURED",
+   "title": "Reference implementation passes RFC 8032 test vectors 1\u20133",
+   "evidence": "Pure-Python Ed25519 (stdlib only) passes public-key derivation, signature production, verification, and tamper rejection for TEST 1 (empty message), TEST 2 (1 byte), TEST 3 (2 bytes). outputs/ed25519-test-vectors.log, 3/3 PASS in 3.76 s.",
+   "remediation": "None. The implementation is a reference, not a production library: it is slow (~0.85 s per sign) and makes no side-channel guarantees."
+  }
+ ],
+ "counts": {
+  "total": 12,
+  "by_severity": {
+   "HIGH": 3,
+   "MEDIUM": 5,
+   "LOW": 3,
+   "INFO": 1
+  },
+  "by_status": {
+   "SPECIFIED": 6,
+   "MEASURED": 6
+  }
+ }
+}

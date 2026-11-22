@@ -1,0 +1,64 @@
+{
+ "pack": "Task Node agent-to-agent execution security assessment",
+ "generated_at_utc": "2026-11-22T21:26:02Z",
+ "environment": {
+  "python": "3.12.3",
+  "tools": "curl, git, python3 (stdlib only)",
+  "network": "public pages only; no credentials, sessions, accounts, or live platform access"
+ },
+ "repo_pins": {
+  "postfiatd": "0085a1ff885d6a446369cf73a4430f75af22be55 (2026-10-10, PR #50 merge, v1.0.9)"
+ },
+ "public_sources": [
+  "https://postfiat.org/ (HTTP 200)",
+  "https://postfiat.org/task-node/ (HTTP 200)",
+  "https://docs.postfiat.org/ (HTTP 200, Notion shell, no readable content)",
+  "https://postfiat.org/whitepaper/ (HTTP 200)",
+  "https://genai.owasp.org/llm-top-10/ (OWASP LLM Top 10 2025)",
+  "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/ (OWASP Agentic Top 10 2026)",
+  "https://www.rfc-editor.org/rfc/rfc8032.txt (RFC 8032)",
+  "https://github.com/OWASP/ASVS (OWASP ASVS 5.0)"
+ ],
+ "drill": {
+  "cases_total": 16,
+  "passed": 16,
+  "valid_cases": 3,
+  "attack_cases": 13,
+  "attacks_rejected": 13,
+  "mean_sign_ms": 850.6,
+  "mean_verify_ms": 596.3,
+  "wall_seconds": 24.92
+ },
+ "counts": {
+  "threats_total": 12,
+  "threats_by_status": {
+   "MEASURED": 8,
+   "SPECIFIED": 4
+  },
+  "findings_total": 12,
+  "by_severity": {
+   "HIGH": 3,
+   "MEDIUM": 5,
+   "LOW": 3,
+   "INFO": 1
+  },
+  "by_status": {
+   "SPECIFIED": 6,
+   "MEASURED": 6
+  },
+  "claims_total": 35,
+  "claims_by_status": {
+   "VERIFIED": 18,
+   "SPECIFIED": 12,
+   "UNVERIFIED": 3,
+   "UNTESTABLE": 2
+  },
+  "risks_total": 12
+ },
+ "verdict": "NOT VERIFIABLE \u2014 the reference design holds in the lab (16/16 drill cases, 13/13 attacks rejected), but the live platform's agent-authentication controls cannot be confirmed from any public source.",
+ "notes": [
+  "Assessment + lab drills only: no live credentials, no real user data, no live platform access, no transactions.",
+  "All drill keys are freshly generated LAB keys; only public keys, fingerprints, and timings are recorded.",
+  "Live-platform authentication claims are marked UNVERIFIED or UNTESTABLE: no public source publishes them."
+ ]
+}
