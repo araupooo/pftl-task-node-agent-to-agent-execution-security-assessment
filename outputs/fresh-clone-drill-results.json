@@ -1,0 +1,278 @@
+{
+ "cases": [
+  {
+   "id": "D-01",
+   "name": "valid accept action",
+   "category": "valid",
+   "expected": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "actual": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "pass": true,
+   "sign_ms": 824.6,
+   "verify_ms": 863.2
+  },
+  {
+   "id": "D-02",
+   "name": "valid evidence submission",
+   "category": "valid",
+   "expected": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "actual": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "pass": true,
+   "sign_ms": 904.0,
+   "verify_ms": 854.8
+  },
+  {
+   "id": "D-03",
+   "name": "valid verification response",
+   "category": "valid",
+   "expected": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "actual": {
+    "ok": true,
+    "reason": "ok"
+   },
+   "pass": true,
+   "sign_ms": 890.6,
+   "verify_ms": 865.9
+  },
+  {
+   "id": "D-04",
+   "name": "replayed accept (identical bytes)",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "replay-nonce"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "replay-nonce"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 431.9
+  },
+  {
+   "id": "D-05",
+   "name": "forged evidence (victim identity, attacker key)",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "bad-agent-signature"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "bad-agent-signature"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 414.0
+  },
+  {
+   "id": "D-06",
+   "name": "tampered payload (hash mismatch)",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "payload-mismatch"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "payload-mismatch"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 426.1
+  },
+  {
+   "id": "D-07",
+   "name": "privilege escalation (accept token, evidence action)",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "scope-denied"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "scope-denied"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 813.1
+  },
+  {
+   "id": "D-08",
+   "name": "cross-task capability reuse",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "task-mismatch"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "task-mismatch"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 812.2
+  },
+  {
+   "id": "D-09",
+   "name": "expired capability token",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "token-expired"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "token-expired"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 817.9
+  },
+  {
+   "id": "D-10",
+   "name": "revoked agent credential reused",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "agent-revoked"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "agent-revoked"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 411.1
+  },
+  {
+   "id": "D-11",
+   "name": "stale action timestamp",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "action-expired"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "action-expired"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 423.1
+  },
+  {
+   "id": "D-12",
+   "name": "future action timestamp",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "action-not-yet-valid"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "action-not-yet-valid"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 426.1
+  },
+  {
+   "id": "D-13",
+   "name": "missing signature field",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "malformed-action"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "malformed-action"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 0.0
+  },
+  {
+   "id": "D-14",
+   "name": "capability token from a non-issuer key",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "untrusted-issuer"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "untrusted-issuer"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 425.7
+  },
+  {
+   "id": "D-15",
+   "name": "nonce reused across different actions",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "replay-nonce"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "replay-nonce"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 422.6
+  },
+  {
+   "id": "D-16",
+   "name": "oversized evidence payload",
+   "category": "attack",
+   "expected": {
+    "ok": false,
+    "reason": "payload-too-large"
+   },
+   "actual": {
+    "ok": false,
+    "reason": "payload-too-large"
+   },
+   "pass": true,
+   "sign_ms": 0.0,
+   "verify_ms": 418.9
+  }
+ ],
+ "summary": {
+  "cases_total": 16,
+  "passed": 16,
+  "failed": 0,
+  "valid_cases": 3,
+  "attack_cases": 13,
+  "attacks_rejected": 13,
+  "lab_clock_unix": 1795382862,
+  "design": {
+   "clock_skew_seconds": 300,
+   "action_ttl_seconds": 900,
+   "token_ttl_seconds": 3600,
+   "max_payload_bytes": 1048576
+  },
+  "wall_seconds": 25.09,
+  "mean_sign_ms": 873.1,
+  "mean_verify_ms": 588.4
+ }
+}

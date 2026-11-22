@@ -1,0 +1,5 @@
+RFC 8032 section 7.1 Ed25519 self-test
+  TEST 1: PASS (public-key derivation=OK, signature production=OK, verification=OK, tamper rejection=OK)
+  TEST 2: PASS (public-key derivation=OK, signature production=OK, verification=OK, tamper rejection=OK)
+  TEST 3: PASS (public-key derivation=OK, signature production=OK, verification=OK, tamper rejection=OK)
+self-test: 3/3 vectors PASS (3.76 s)

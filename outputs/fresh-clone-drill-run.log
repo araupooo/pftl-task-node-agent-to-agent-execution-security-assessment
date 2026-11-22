@@ -1,0 +1,22 @@
+lab security drill run start (LAB keys only, no live key material)
+lab clock (unix): 1795382862
+cases: 16 (3 valid, 13 attacks)
+  [D-01] PASS valid accept action: expected True/ok, got True/ok (sign 824.6 ms, verify 863.2 ms)
+  [D-02] PASS valid evidence submission: expected True/ok, got True/ok (sign 904.0 ms, verify 854.8 ms)
+  [D-03] PASS valid verification response: expected True/ok, got True/ok (sign 890.6 ms, verify 865.9 ms)
+  [D-04] PASS replayed accept (identical bytes): expected False/replay-nonce, got False/replay-nonce (sign 0.0 ms, verify 431.9 ms)
+  [D-05] PASS forged evidence (victim identity, attacker key): expected False/bad-agent-signature, got False/bad-agent-signature (sign 0.0 ms, verify 414.0 ms)
+  [D-06] PASS tampered payload (hash mismatch): expected False/payload-mismatch, got False/payload-mismatch (sign 0.0 ms, verify 426.1 ms)
+  [D-07] PASS privilege escalation (accept token, evidence action): expected False/scope-denied, got False/scope-denied (sign 0.0 ms, verify 813.1 ms)
+  [D-08] PASS cross-task capability reuse: expected False/task-mismatch, got False/task-mismatch (sign 0.0 ms, verify 812.2 ms)
+  [D-09] PASS expired capability token: expected False/token-expired, got False/token-expired (sign 0.0 ms, verify 817.9 ms)
+  [D-10] PASS revoked agent credential reused: expected False/agent-revoked, got False/agent-revoked (sign 0.0 ms, verify 411.1 ms)
+  [D-11] PASS stale action timestamp: expected False/action-expired, got False/action-expired (sign 0.0 ms, verify 423.1 ms)
+  [D-12] PASS future action timestamp: expected False/action-not-yet-valid, got False/action-not-yet-valid (sign 0.0 ms, verify 426.1 ms)
+  [D-13] PASS missing signature field: expected False/malformed-action, got False/malformed-action (sign 0.0 ms, verify 0.0 ms)
+  [D-14] PASS capability token from a non-issuer key: expected False/untrusted-issuer, got False/untrusted-issuer (sign 0.0 ms, verify 425.7 ms)
+  [D-15] PASS nonce reused across different actions: expected False/replay-nonce, got False/replay-nonce (sign 0.0 ms, verify 422.6 ms)
+  [D-16] PASS oversized evidence payload: expected False/payload-too-large, got False/payload-too-large (sign 0.0 ms, verify 418.9 ms)
+drill result: 16/16 cases PASS (13/13 attacks rejected)
+mean sign 873.1 ms, mean verify 588.4 ms, wall 25.09 s
+drill run end
