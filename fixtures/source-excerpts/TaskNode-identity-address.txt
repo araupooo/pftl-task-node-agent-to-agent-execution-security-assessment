@@ -1,0 +1,22 @@
+# Pinned source excerpt
+# repo: https://github.com/postfiatorg/postfiatd
+# commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+# file: docs/dynamic-unl/archive/Design_DistributedLocalHardware.md
+# lines: 45-60 (1-based, verified with grep -n)
+# ----
+45: ## Oracle Node Structure
+46: 
+47: Carried from Approach 2 with hardware requirement changes.
+48: 
+49: ### Registration
+50: 
+51: - Bond **100,000 PFT** on-chain (locked while active, returned in full on deregistration — not slashable)
+52: - Link a **Task Node address** (on-chain address associated with the operator's Task Node identity)
+53: - Complete a **test round** demonstrating proof-of-logits capability (successfully produce and submit valid logit commitments using the pinned model)
+54: 
+55: ### Liveness Requirements
+56: 
+57: - Oracle Nodes must participate in at least 1 of the last 4 scoring rounds
+58: - Failure to meet liveness requirements results in the node being marked inactive
+59: - Inactive nodes are excluded from quorum calculations
+60: - Inactive nodes can reactivate by participating in the next scoring round

@@ -1,0 +1,51 @@
+# Pinned source excerpt
+# repo: https://github.com/postfiatorg/postfiatd
+# commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+# file: include/xrpl/protocol/KeyType.h
+# lines: 1-45 (1-based, verified with grep -n)
+# ----
+1: //------------------------------------------------------------------------------
+2: /*
+3:     This file is part of rippled: https://github.com/ripple/rippled
+4:     Copyright (c) 2015 Ripple Labs Inc.
+5: 
+6:     Permission to use, copy, modify, and/or distribute this software for any
+7:     purpose  with  or without fee is hereby granted, provided that the above
+8:     copyright notice and this permission notice appear in all copies.
+9: 
+10:     THE  SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+11:     WITH  REGARD  TO  THIS  SOFTWARE  INCLUDING  ALL  IMPLIED  WARRANTIES  OF
+12:     MERCHANTABILITY  AND  FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+13:     ANY  SPECIAL ,  DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+14:     WHATSOEVER  RESULTING  FROM  LOSS  OF USE, DATA OR PROFITS, WHETHER IN AN
+15:     ACTION  OF  CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+16:     OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+17: */
+18: //==============================================================================
+19: 
+20: #ifndef RIPPLE_PROTOCOL_KEYTYPE_H_INCLUDED
+21: #define RIPPLE_PROTOCOL_KEYTYPE_H_INCLUDED
+22: 
+23: #include <optional>
+24: #include <string>
+25: 
+26: namespace ripple {
+27: 
+28: enum class KeyType {
+29:     secp256k1 = 0,
+30:     ed25519 = 1,
+31: };
+32: 
+33: inline std::optional<KeyType>
+34: keyTypeFromString(std::string const& s)
+35: {
+36:     if (s == "secp256k1")
+37:         return KeyType::secp256k1;
+38: 
+39:     if (s == "ed25519")
+40:         return KeyType::ed25519;
+41: 
+42:     return {};
+43: }
+44: 
+45: inline char const*

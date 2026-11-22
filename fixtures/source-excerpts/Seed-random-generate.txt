@@ -1,0 +1,37 @@
+# Pinned source excerpt
+# repo: https://github.com/postfiatorg/postfiatd
+# commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+# file: include/xrpl/protocol/Seed.h
+# lines: 90-120 (1-based, verified with grep -n)
+# ----
+90:     {
+91:         return buf_.cend();
+92:     }
+93: };
+94: 
+95: //------------------------------------------------------------------------------
+96: 
+97: /** Create a seed using secure random numbers. */
+98: Seed
+99: randomSeed();
+100: 
+101: /** Generate a seed deterministically.
+102: 
+103:     The algorithm is specific to Ripple:
+104: 
+105:         The seed is calculated as the first 128 bits
+106:         of the SHA512-Half of the string text excluding
+107:         any terminating null.
+108: 
+109:     @note This will not attempt to determine the format of
+110:           the string (e.g. hex or base58).
+111: */
+112: Seed
+113: generateSeed(std::string const& passPhrase);
+114: 
+115: /** Parse a Base58 encoded string into a seed */
+116: template <>
+117: std::optional<Seed>
+118: parseBase58(std::string const& s);
+119: 
+120: /** Attempt to parse a string as a seed.

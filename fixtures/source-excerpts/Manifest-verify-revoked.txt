@@ -1,0 +1,62 @@
+# Pinned source excerpt
+# repo: https://github.com/postfiatorg/postfiatd
+# commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+# file: src/xrpld/app/misc/detail/Manifest.cpp
+# lines: 190-245 (1-based, verified with grep -n)
+# ----
+190:       << ";Pk: " << toBase58(TokenType::NodePublic, pk) << ";Seq: " << seq
+191:       << ";OldSeq: " << oldSeq << ";";
+192:     return s;
+193: }
+194: 
+195: bool
+196: Manifest::verify() const
+197: {
+198:     STObject st(sfGeneric);
+199:     SerialIter sit(serialized.data(), serialized.size());
+200:     st.set(sit);
+201: 
+202:     // The manifest must either have a signing key or be revoked.  This check
+203:     // prevents us from accessing an unseated signingKey in the next check.
+204:     if (!revoked() && !signingKey)
+205:         return false;
+206: 
+207:     // Signing key and signature are not required for
+208:     // master key revocations
+209:     if (!revoked() && !ripple::verify(st, HashPrefix::manifest, *signingKey))
+210:         return false;
+211: 
+212:     return ripple::verify(
+213:         st, HashPrefix::manifest, masterKey, sfMasterSignature);
+214: }
+215: 
+216: uint256
+217: Manifest::hash() const
+218: {
+219:     STObject st(sfGeneric);
+220:     SerialIter sit(serialized.data(), serialized.size());
+221:     st.set(sit);
+222:     return st.getHash(HashPrefix::manifest);
+223: }
+224: 
+225: bool
+226: Manifest::revoked() const
+227: {
+228:     /*
+229:         The maximum possible sequence number means that the master key
+230:         has been revoked.
+231:     */
+232:     return revoked(sequence);
+233: }
+234: 
+235: bool
+236: Manifest::revoked(std::uint32_t sequence)
+237: {
+238:     // The maximum possible sequence number means that the master key has
+239:     // been revoked.
+240:     return sequence == std::numeric_limits<std::uint32_t>::max();
+241: }
+242: 
+243: std::optional<Blob>
+244: Manifest::getSignature() const
+245: {

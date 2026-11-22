@@ -1,0 +1,39 @@
+# Pinned source excerpt
+# repo: https://github.com/postfiatorg/postfiatd
+# commit: 0085a1ff885d6a446369cf73a4430f75af22be55
+# file: include/xrpl/protocol/PublicKey.h
+# lines: 230-262 (1-based, verified with grep -n)
+# ----
+230: publicKeyType(Slice const& slice);
+231: 
+232: [[nodiscard]] inline std::optional<KeyType>
+233: publicKeyType(PublicKey const& publicKey)
+234: {
+235:     return publicKeyType(publicKey.slice());
+236: }
+237: /** @} */
+238: 
+239: /** Verify a secp256k1 signature on the digest of a message. */
+240: [[nodiscard]] bool
+241: verifyDigest(
+242:     PublicKey const& publicKey,
+243:     uint256 const& digest,
+244:     Slice const& sig,
+245:     bool mustBeFullyCanonical = true) noexcept;
+246: 
+247: /** Verify a signature on a message.
+248:     With secp256k1 signatures, the data is first hashed with
+249:     SHA512-Half, and the resulting digest is signed.
+250: */
+251: [[nodiscard]] bool
+252: verify(
+253:     PublicKey const& publicKey,
+254:     Slice const& m,
+255:     Slice const& sig,
+256:     bool mustBeFullyCanonical = true) noexcept;
+257: 
+258: /** Calculate the 160-bit node ID from a node public key. */
+259: NodeID
+260: calcNodeID(PublicKey const&);
+261: 
+262: // VFALCO This belongs in AccountID.h but
