@@ -1,0 +1,48 @@
+{
+ "design_parameters": {
+  "clock_skew_seconds": 300,
+  "action_ttl_seconds": 900,
+  "token_ttl_seconds": 3600,
+  "max_payload_bytes": 1048576,
+  "nonce_bits": 128
+ },
+ "measured_wire_sizes_bytes": {
+  "capability_token_json": 580,
+  "signed_action_json": 533,
+  "ed25519_public_key": 32,
+  "ed25519_secret_key": 32,
+  "ed25519_signature": 64
+ },
+ "replay_window": {
+  "action_valid_seconds": 900,
+  "nonce_cache_retention_seconds": 900,
+  "clock_skew_seconds": 300,
+  "max_acceptable_age_seconds": 1200
+ },
+ "nonce_collision_probability": {
+  "actions_per_day": {
+   "1e3": 1.4693679385278594e-33,
+   "1e6": 1.4693679385278594e-27,
+   "1e9": 1.4693679385278594e-21
+  },
+  "note": "birthday bound n^2 / 2^129 for 128-bit nonces"
+ },
+ "signature_fit_vs_manifest_cap_bytes": {
+  "manifest_cap_bytes": 512,
+  "ed25519_signature_bytes": 64,
+  "ed25519_fits_cap": true,
+  "ed25519_cap_ratio": 0.125,
+  "ml_dsa_65_signature_bytes": 3309,
+  "ml_dsa_65_fits_cap": false,
+  "ml_dsa_65_cap_ratio": 6.46,
+  "slh_dsa_128s_signature_bytes": 7856,
+  "slh_dsa_128s_fits_cap": false,
+  "slh_dsa_128s_cap_ratio": 15.34
+ },
+ "pq_sizes": {
+  "ml_dsa_65_signature_bytes": 3309,
+  "ml_dsa_65_public_key_bytes": 1952,
+  "slh_dsa_128s_signature_bytes": 7856,
+  "slh_dsa_128s_public_key_bytes": 32
+ }
+}
