@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Task Node Agent-to-Agent Execution Security Assessment</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:900px;margin:2em auto;padding:0 1em;line-height:1.5}
+h1{font-size:1.6em}h2{font-size:1.2em;border-bottom:1px solid #ccc;padding-bottom:.2em}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:.4em;text-align:left}
+.verdict{background:#fff3cd;border:1px solid #e6c200;padding:1em}
+code{background:#f4f4f4;padding:.1em .3em}
+</style>
+</head>
+<body>
+<h1>Task Node Agent-to-Agent Execution Security Assessment</h1>
+<p>Standalone technical assessment of agent-to-agent task execution
+security: threat model, authentication/authorization design with a
+runnable reference implementation, lab security drill, incident-response
+playbook, and credential lifecycle policy. Lab-only: no live
+credentials, no real user data, no live platform access, no
+transactions.</p>
+
+<div class="verdict">
+<h2>Verdict</h2>
+<p><strong>NOT VERIFIABLE</strong> — the reference design holds in the
+lab (16/16 drill cases, 13/13 attacks rejected), but the live
+platform's agent-authentication controls cannot be confirmed from any
+public source.</p>
+</div>
+
+<h2>Key measurements</h2>
+<table>
+<tr><th>Measure</th><th>Value</th></tr>
+<tr><td>RFC 8032 test vectors (TEST 1–3)</td><td>3/3 PASS (3.76 s)</td></tr>
+<tr><td>Lab drill cases</td><td>16/16 PASS — 3 valid accepted, 13 attacks rejected</td></tr>
+<tr><td>Drill wall time / mean sign / mean verify</td><td>24.92 s / 850.6 ms / 596.3 ms</td></tr>
+<tr><td>Capability token size (measured)</td><td>580 bytes</td></tr>
+<tr><td>Signed action size (measured)</td><td>533 bytes</td></tr>
+<tr><td>Ed25519 signature vs 512-byte manifest cap</td><td>64 bytes = 12.5% (fits)</td></tr>
+<tr><td>Nonce collision probability (1e6 actions/day)</td><td>1.469e-27</td></tr>
+<tr><td>Design windows</td><td>clock skew 300 s, action TTL 900 s, token TTL 3600 s, payload cap 1 MiB</td></tr>
+</table>
+
+<h2>Counts</h2>
+<table>
+<tr><th>Item</th><th>Count</th></tr>
+<tr><td>Threats</td><td>12 (8 MEASURED, 4 SPECIFIED)</td></tr>
+<tr><td>Findings</td><td>12 (3 HIGH, 5 MEDIUM, 3 LOW, 1 INFO; 6 MEASURED, 6 SPECIFIED)</td></tr>
+<tr><td>Claims</td><td>35 (18 VERIFIED, 12 SPECIFIED, 3 UNVERIFIED, 2 UNTESTABLE)</td></tr>
+<tr><td>Risks</td><td>12</td></tr>
+<tr><td>Gaps</td><td>7</td></tr>
+</table>
+
+<h2>Findings</h2>
+<table>
+<tr><th>ID</th><th>Severity</th><th>Status</th><th>Title</th></tr>
+<tr><td>F-01</td><td>HIGH</td><td>SPECIFIED</td><td>No published agent-authentication specification for the live platform</td></tr>
+<tr><td>F-02</td><td>HIGH</td><td>MEASURED</td><td>Reference design rejects 13/13 attack cases in the lab drill</td></tr>
+<tr><td>F-03</td><td>HIGH</td><td>SPECIFIED</td><td>A single long-lived agent credential is a single point of compromise</td></tr>
+<tr><td>F-04</td><td>MEDIUM</td><td>MEASURED</td><td>Forged evidence is rejected by signature verification</td></tr>
+<tr><td>F-05</td><td>MEDIUM</td><td>MEASURED</td><td>Cross-task capability reuse is rejected</td></tr>
+<tr><td>F-06</td><td>MEDIUM</td><td>SPECIFIED</td><td>Goal hijack via poisoned task text is not stopped by cryptography</td></tr>
+<tr><td>F-07</td><td>MEDIUM</td><td>MEASURED</td><td>Revocation list blocks stolen-credential reuse</td></tr>
+<tr><td>F-08</td><td>MEDIUM</td><td>SPECIFIED</td><td>No published credential revocation/rotation procedure for agents</td></tr>
+<tr><td>F-09</td><td>LOW</td><td>MEASURED</td><td>Replay window is bounded by nonce cache plus a 300 s clock-skew window</td></tr>
+<tr><td>F-10</td><td>LOW</td><td>SPECIFIED</td><td>Ed25519 fits the platform's existing key types</td></tr>
+<tr><td>F-11</td><td>LOW</td><td>SPECIFIED</td><td>Per-task audit record must be append-only; its tamper-evidence is unverified</td></tr>
+<tr><td>F-12</td><td>INFO</td><td>MEASURED</td><td>Reference implementation passes RFC 8032 test vectors 1–3</td></tr>
+</table>
+
+<h2>Documents</h2>
+<ul>
+<li><a href="threat-model.md">Threat model</a> — 12 threats across the task lifecycle</li>
+<li><a href="auth-design.md">Authentication and authorization design</a></li>
+<li><a href="drill-report.md">Lab security drill report</a> — 16 cases, 13 attacks rejected</li>
+<li><a href="incident-response.md">Incident-response playbook</a></li>
+<li><a href="credential-lifecycle.md">Credential lifecycle policy</a></li>
+<li><a href="decision-memo.md">Decision memo</a></li>
+<li><a href="methodology.md">Methodology</a></li>
+<li><a href="claim-index.md">Claim-to-evidence index</a> — 35 claims</li>
+<li><a href="evidence-index.md">Evidence index</a></li>
+<li><a href="gap-register.md">Gap register</a> — 7 gaps</li>
+<li><a href="risk-register.md">Risk register</a> — 12 risks</li>
+<li><a href="citations.md">Citations</a></li>
+</ul>
+
+<h2>Reproduction</h2>
+<pre><code>bash scripts/clean_reproduce.sh   # fresh-clone pipeline, exit 0, CHECKS PASSED
+bash scripts/verify_digests.sh    # verifies SHA256SUMS, exit 0</code></pre>
+
+<h2>Pinned sources</h2>
+<p>postfiatd <code>0085a1ff885d6a446369cf73a4430f75af22be55</code>
+(2026-10-10, PR #50 merge, v1.0.9). Public pages fetched 2026-11-23.
+OWASP LLM Top 10 2025; OWASP Agentic Top 10 2026; OWASP ASVS 5.0;
+RFC 8032; NIST SP 800-61 Rev. 3 (April 2025).</p>
+</body>
+</html>
